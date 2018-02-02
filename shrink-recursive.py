@@ -4,7 +4,7 @@
 # check if file's album tag is "recompressed", if not recompress it, and add that tag
 # then rename/overwrite of OVERWRITE = True
 #
-#hi
+#hihmm
 #
 # Copy ffmpeg and ffprobe into the same folder as this script.
 
