@@ -14,6 +14,7 @@ import os
 from pathlib import Path
 import shlex
 import re
+import time
 
 def escape_argument(arg):
     # From http://stackoverflow.com/a/29215357/1499289
@@ -132,9 +133,10 @@ else:
   i = __location__
 print(i)
 exts = ['mov', 'MOV', 'mp4', 'MP4', 'm4v', 'M4V']
-
-for ext in exts:
-    files = sorted(Path(i).glob('**/*.'+ext))
-    for file in files:
-        shrinkFile(file)
-a = input("Done, press Enter")
+while True:
+ for ext in exts:
+     files = sorted(Path(i).glob('**/*.'+ext))
+     for file in files:
+         shrinkFile(file)
+ print("Es wird 1 Minute gewartet")
+ time.sleep(60*1)
