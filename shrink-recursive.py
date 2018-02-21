@@ -57,8 +57,8 @@ def escape_for_cmd_exe(arg):
 
 def isRecompressed(inputPath):
     # runs ffprobe to read the album tag, returns True if tag exists and equals "recompressed"
-    cmd = os.path.join(__location__,"ffprobe") + ' -hide_banner -of default=noprint_wrappers=1  -show_entries format_tags=album -v quiet '+str(inputPath)
-    probe = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+    cmd = 'ffprobe -hide_banner -of default=noprint_wrappers=1  -show_entries format_tags=album -v quiet '+str(inputPath)
+    probe = subprocess.call(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
     output, outputError = probe.communicate()
     print(output, outputError)
     output = output.strip().decode('utf-8')
@@ -68,14 +68,14 @@ def isRecompressed(inputPath):
 def doRecompress(inputPath, outputPath):
     # runs ffmpeg to recompress to crf 23 (this approx halves size of ipad 720p videos)
     # sets the album tag to "recompressed"
-    cmd = os.path.join(__location__,"ffmpeg") + ' -hide_banner -v quiet -i '+str(inputPath)+' -metadata album="recompressed" \
+    cmd = 'ffmpeg -hide_banner -v quiet -i '+str(inputPath)+' -metadata album="recompressed" \
           -c:v libx264 -preset slow -crf 23 -acodec copy '+str(outputPath)
     #test command that does not recompress
     #cmd = os.path.join(__location__,"ffmpeg") + ' -hide_banner -v quiet -i '+str(inputPath)+' -metadata album="recompressed" \
     #      -c copy '+str(outputPath)
     print(cmd)
     try:
-        probe = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+        probe = subprocess.call(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
         output, outputError = probe.communicate()
         returncode = 0
         print(output, outputError)
